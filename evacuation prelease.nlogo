@@ -145,7 +145,9 @@ to setup-patches
     top-left-first-corner-hall-exit
     top-left-second-corner-hall-exit
     bottom-left-second-corner-hall-exit
-    setup-backdoor-exit
+    ;setup-backdoor-exit
+    top-left-first-stair
+    bottom-left-second-stair
     setup-opened-exits
     setup-opened-exits-second
     classroom-doors
@@ -189,7 +191,7 @@ to main-hall
     set object "wall"
   ]
 
-  if ( (pycor > -32 and pycor <= 28) and pxcor = -42 ) [                        ;  lungime hol latime stanga (muchie stanga) = 29m
+  if ( (pycor > -32 and pycor <= 31) and pxcor = -42 ) [                        ;  lungime hol latime stanga (muchie stanga) = 29m
     set pcolor black
     set object "wall"
   ]
@@ -473,7 +475,7 @@ to top-left-second-corner-hall-exit
     set pcolor 7
   ]      ; scari spre iesire principala
 
-  if ( (pycor = 31 and pxcor >= -38 and pxcor <= -35) ) [                                                            ; peretele la care te uiti dinspre scarile mici
+  if ( (pycor = 31 and pxcor >= -42 and pxcor <= -35) ) [                                                            ; peretele la care te uiti dinspre scarile mici
     set pcolor black
     set object "wall"
   ]
@@ -553,6 +555,20 @@ to setup-backdoor-exit
     ]
   ]
 
+end
+
+to top-left-first-stair
+  if ( pxcor = -39 and (pycor >= 28 and pycor <= 30) ) [
+    set pcolor turquoise
+    set object "tele1-intermediate-door"
+  ]
+end
+
+to bottom-left-second-stair
+  if ( pxcor = -32 and (pycor >= -19 and pycor <= -17) ) [
+    set pcolor turquoise
+    set object "tele2-intermediate-door"
+  ]
 end
 
 
@@ -680,14 +696,14 @@ end
 to setup-outside
 
   if (
-    ((pxcor >= -63 and pxcor <= -57) and (pycor >= min-pycor and pycor <= max-pycor)) or
-    ((pxcor >= -56 and pxcor <= -40) and (pycor >= 29 and pycor <= max-pycor)) or
-    ((pxcor = -34) and (pycor >= min-pycor and pycor <= 16)) or
-    ((pxcor >= -34 and pxcor <= -26) and (pycor >= 16 and pycor <= max-pycor)) or
-    ((pxcor >= -7 and pxcor <= max-pxcor) and (pycor >= min-pycor and pycor <= max-pxcor)) or
-    ((pxcor >= -39 and pxcor <= -35) and (pycor >= 32 and pycor <= max-pycor)) or
-    ((pxcor >= -25 and pxcor <= -23) and (pycor >= 17 and pycor <= max-pycor)) or
-    ((pycor >= min-pycor and pycor <= -32) and (pxcor >= min-pxcor and pxcor <= max-pxcor))
+    ((pxcor >= min-pxcor and pxcor <= max-pxcor ) and (pycor >= min-pycor and pycor <= -32 )) or
+    ((pxcor >= min-pxcor and pxcor <= max-pxcor ) and (pycor >= 32 and pycor <= min-pycor )) or
+    ((pxcor >= min-pxcor and pxcor <= -43 ) and (pycor >= 30 and pycor <= 31 )) or
+    ((pxcor >= min-pxcor and pxcor <= -57 ) and (pycor >= -31 and pycor <= 29 )) or
+    ((pxcor >= -34 and pxcor <= -30 ) and (pycor >= -15 and pycor <= 31 )) or
+    ((pxcor >= -29 and pxcor <= -23 ) and (pycor >= 17 and pycor <= 31 )) or
+    ((pxcor >= -22 and pxcor <= max-pxcor ) and (pycor >= 30 and pycor <= 31 )) or
+    ((pxcor >= -9 and pxcor <= max-pxcor ) and (pycor >= -31 and pycor <= 29 ))
   )
   [
     set outside true
