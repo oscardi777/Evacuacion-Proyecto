@@ -147,6 +147,7 @@ to setup-patches
     bottom-left-second-corner-hall-exit
     setup-backdoor-exit
     setup-opened-exits
+    setup-opened-exits-second
     classroom-doors
     setup-outside
   ]
@@ -172,11 +173,13 @@ to main-hall
     set pcolor black
     set object "wall"
   ]
+
   if ( pxcor = -29 and (( pycor >= 10 and pycor <= 15 ))) [
     set pcolor black
     set object "wall"
   ]
-  if ( pycor = -31 and (( pxcor >= -42 and pxcor <= -32 ) or (pxcor >= -29 and pxcor <= -22)) ) [
+
+  if ( pycor = -31 and (( pxcor >= -42 and pxcor <= -22)) ) [
     set pcolor black
     set object "wall"
   ]
@@ -196,7 +199,7 @@ to main-hall
     set object "wall"
   ]
 
-  if ( (pycor > -32 and pycor <= 9) and pxcor = -29 ) [                          ;  lungime hol latime dreapta (muchie stanga) = 29m
+  if ( (pycor > -17 and pycor <= 9) and pxcor = -29 ) [                          ;  lungime hol latime dreapta (muchie stanga) = 29m
     set pcolor black
     set object "wall"
   ]
@@ -489,7 +492,12 @@ to bottom-left-second-corner-hall-exit
     set object "wall"
   ]
 
-  if ( (pycor <= -17 and pycor >= -30) and pxcor = -29) [
+  if ( (pycor <= -30 and pycor >= -31) and pxcor = -29) [
+    set pcolor black
+    set object "wall"
+  ]
+
+  if ( (pycor <= -17 and pycor >= -27) and pxcor = -29) [
     set pcolor black
     set object "wall"
   ]
@@ -510,7 +518,7 @@ to bottom-left-second-corner-hall-exit
     set pcolor 7
   ]      ; scari spre iesire principala
 
-  if ( (pycor = -31 and pxcor >= -31 and pxcor <= -29) ) [                                                 ; peretele la care te uiti dinspre scarile mici
+  if ( (pycor = -31 and (pxcor >= -31 and pxcor <= -29)) ) [                                                 ; peretele la care te uiti dinspre scarile mici
     set pcolor black
     set object "wall"
   ]
@@ -575,7 +583,32 @@ to setup-opened-exits
 
 end
 
+to setup-opened-exits-second
+  let exit-start-pxcor -27   ; posición horizontal de inicio de la puerta
+  let full-door-width 3       ; ancho completo de la puerta
 
+  if ( (pxcor >= exit-start-pxcor and pxcor < exit-start-pxcor + full-door-width) and pycor = -31 )
+  [
+    let open-door-width 0
+
+    (ifelse
+      backdoor-exit = "closed" [set open-door-width 0]
+      backdoor-exit = "partially-opened" [set open-door-width full-door-width - 1]
+      backdoor-exit = "opened" [set open-door-width full-door-width]
+      [ ]
+    )
+
+    ifelse pxcor < exit-start-pxcor + open-door-width
+    [
+      set pcolor green
+      set object "door"
+    ]
+    [
+      set pcolor orange
+    ]
+  ]
+
+end
 
 
 
@@ -651,10 +684,10 @@ to setup-outside
     ((pxcor >= -56 and pxcor <= -40) and (pycor >= 29 and pycor <= max-pycor)) or
     ((pxcor = -34) and (pycor >= min-pycor and pycor <= 16)) or
     ((pxcor >= -34 and pxcor <= -26) and (pycor >= 16 and pycor <= max-pycor)) or
-    ((pxcor >= -25 and pxcor <= max-pxcor) and (pycor >= 29   and pycor <= max-pycor)) or
-    ((pxcor >= -12  and pxcor <= max-pxcor) and (pycor >= min-pycor and pycor <= 28)) or
+    ((pxcor >= -7 and pxcor <= max-pxcor) and (pycor >= min-pycor and pycor <= max-pxcor)) or
     ((pxcor >= -39 and pxcor <= -35) and (pycor >= 32 and pycor <= max-pycor)) or
-    ((pxcor >= -25 and pxcor <= -23) and (pycor >= 17 and pycor <= max-pycor))
+    ((pxcor >= -25 and pxcor <= -23) and (pycor >= 17 and pycor <= max-pycor)) or
+    ((pycor >= min-pycor and pycor <= -32) and (pxcor >= min-pxcor and pxcor <= max-pxcor))
   )
   [
     set outside true
