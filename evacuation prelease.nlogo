@@ -560,14 +560,14 @@ end
 to top-left-first-stair
   if ( pxcor = -39 and (pycor >= 28 and pycor <= 30) ) [
     set pcolor turquoise
-    set object "tele1-intermediate-door"
+    set object "teleport-door"
   ]
 end
 
 to bottom-left-second-stair
   if ( pxcor = -32 and (pycor >= -19 and pycor <= -17) ) [
     set pcolor turquoise
-    set object "tele2-intermediate-door"
+    set object "teleport-door"
   ]
 end
 
@@ -637,9 +637,11 @@ to setup-energy
   ]
 end
 
+
 to compute-energy [energy-level floor-partch]
   (ifelse
     object = "door" [set energy energy-level]
+    object = "teleport-door" [set energy energy-level]  ;; Añade esta línea para las puertas de teletransporte
     object = "floor" [set energy energy-level + 1]
     object = "intermediate-door" [set energy energy-level + 1]
     [ ] )
@@ -647,6 +649,12 @@ to compute-energy [energy-level floor-partch]
 set plabel energy
 let patch-energy energy
 
+  ask neighbors with [object = "teleport-door" and outside = false and energy > [energy] of myself + 1]
+  [
+    compute-energy patch-energy self
+  ]
+
+  ;; Propaga la energía desde otras puertas
   ask neighbors with [object = "floor" and outside = false and energy > [energy] of myself + 1]
   [
     compute-energy patch-energy self
@@ -656,12 +664,6 @@ let patch-energy energy
   [
     compute-energy patch-energy self
   ]
-
-  ask neighbors with [object = "floor" and outside = false and energy > [energy] of myself + 1]
-  [
-    compute-energy patch-energy self
-  ]
-
 end
 
 
