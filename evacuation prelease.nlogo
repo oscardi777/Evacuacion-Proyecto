@@ -176,7 +176,7 @@ to main-hall
     set pcolor black
     set object "wall"
   ]
-  if ( pycor = -31 and (( pxcor >= -42 and pxcor <= -35 ) or (pxcor >= -29 and pxcor <= -22)) ) [
+  if ( pycor = -31 and (( pxcor >= -42 and pxcor <= -32 ) or (pxcor >= -29 and pxcor <= -22)) ) [
     set pcolor black
     set object "wall"
   ]
@@ -478,12 +478,18 @@ to top-left-second-corner-hall-exit
 end
 
 to bottom-left-second-corner-hall-exit
-  if ( (pxcor = -32 and (pycor <= -17 and pycor >= -31)) ) [                                             ; peretele dintre scari (cele spre et1 si cele spre iesire)
+
+  if ( pycor = -16 and (pxcor >= -35 and pxcor <= -29))  [                                             ; peretele dintre scari (cele spre et1 si cele spre iesire)
     set pcolor black
     set object "wall"
   ]
 
-  if ( (pycor <= -17 and pycor >= -30) and pxcor = -28) [
+  if ( pxcor = -32 and (pycor <= -20 and pycor >= -31))  [                                             ; peretele dintre scari (cele spre et1 si cele spre iesire)
+    set pcolor black
+    set object "wall"
+  ]
+
+  if ( (pycor <= -17 and pycor >= -30) and pxcor = -29) [
     set pcolor black
     set object "wall"
   ]
@@ -497,14 +503,14 @@ to bottom-left-second-corner-hall-exit
     set object "wall"
   ]
 
-  if ( (pycor <= -21 and pycor >= -24 and pycor mod 2 = 0) and (pxcor >= -31 and pxcor <= -29) ) [         ; scari spre iesire principala
+  if ( (pycor <= -21 and pycor >= -24 and pycor mod 2 = 0) and (pxcor >= -31 and pxcor <= -30) ) [         ; scari spre iesire principala
     set pcolor gray
   ]
-  if ( (pycor <= -21 and pycor >= -24 and pycor mod 2 = 1) and (pxcor >= -31 and pxcor <= -29) ) [
+  if ( (pycor <= -21 and pycor >= -24 and pycor mod 2 = 1) and (pxcor >= -31 and pxcor <= -30) ) [
     set pcolor 7
   ]      ; scari spre iesire principala
 
-  if ( (pycor = -31 and pxcor >= -31 and pxcor <= -28) ) [                                                 ; peretele la care te uiti dinspre scarile mici
+  if ( (pycor = -31 and pxcor >= -31 and pxcor <= -29) ) [                                                 ; peretele la care te uiti dinspre scarile mici
     set pcolor black
     set object "wall"
   ]
