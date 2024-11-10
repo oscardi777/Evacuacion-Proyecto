@@ -713,6 +713,14 @@ to setup-outside
 
 end
 
+
+to teleport
+  ask turtles with [pycor = 26 and (pxcor >= -38  and pxcor <= -36 )]
+  [
+  setxy -31 -17
+  ]
+end
+
 ;go when obstacles are jumpable
 to go
 
@@ -792,7 +800,6 @@ to go
           ;adapt speed
 
           ;move forward
-
           ;if teacher is around, increase the turtle speed with 0.1
           ifelse (isTeacherNear and inspire-students)
           [
@@ -814,6 +821,7 @@ to go
 
     ]
   ]
+  teleport
 end
 
 
