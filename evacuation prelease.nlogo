@@ -145,8 +145,8 @@ to setup-patches
     top-left-first-corner-hall-exit
     top-left-second-corner-hall-exit
     bottom-left-second-corner-hall-exit
-    ;setup-backdoor-exit
-    top-left-first-stair
+    setup-backdoor-exit
+    ;top-left-first-stair
     bottom-left-second-stair
     setup-opened-exits
     setup-opened-exits-second
@@ -638,10 +638,10 @@ to setup-energy
 end
 
 
+
 to compute-energy [energy-level floor-partch]
   (ifelse
     object = "door" [set energy energy-level]
-    object = "teleport-door" [set energy energy-level]  ;; Añade esta línea para las puertas de teletransporte
     object = "floor" [set energy energy-level + 1]
     object = "intermediate-door" [set energy energy-level + 1]
     [ ] )
@@ -649,12 +649,6 @@ to compute-energy [energy-level floor-partch]
 set plabel energy
 let patch-energy energy
 
-  ask neighbors with [object = "teleport-door" and outside = false and energy > [energy] of myself + 1]
-  [
-    compute-energy patch-energy self
-  ]
-
-  ;; Propaga la energía desde otras puertas
   ask neighbors with [object = "floor" and outside = false and energy > [energy] of myself + 1]
   [
     compute-energy patch-energy self
@@ -664,6 +658,12 @@ let patch-energy energy
   [
     compute-energy patch-energy self
   ]
+
+  ask neighbors with [object = "floor" and outside = false and energy > [energy] of myself + 1]
+  [
+    compute-energy patch-energy self
+  ]
+
 end
 
 
