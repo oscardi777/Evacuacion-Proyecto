@@ -142,11 +142,12 @@ to setup-patches
     desks-classroom-1-right
     desks-classroom-2-right
     desks-classroom-3-right
+    setup-backdoor-exit-medium
     top-left-first-corner-hall-exit
     top-left-second-corner-hall-exit
     bottom-left-second-corner-hall-exit
     setup-backdoor-exit
-    ;top-left-first-stair
+    top-left-first-stair
     bottom-left-second-stair
     setup-opened-exits
     setup-opened-exits-second
@@ -494,12 +495,12 @@ to bottom-left-second-corner-hall-exit
     set object "wall"
   ]
 
-  if ( (pycor <= -30 and pycor >= -31) and pxcor = -29) [
-    set pcolor black
-    set object "wall"
-  ]
+  ;if ( (pycor <= -30 and pycor >= -31) and pxcor = -29) [
+   ; set pcolor black
+   ; set object "wall"
+  ;]
 
-  if ( (pycor <= -17 and pycor >= -27) and pxcor = -29) [
+  if ( (pycor <= -16 and pycor >= -26) and pxcor = -28) [
     set pcolor black
     set object "wall"
   ]
@@ -557,17 +558,44 @@ to setup-backdoor-exit
 
 end
 
+to setup-backdoor-exit-medium
+
+  let exit-start-pycor -2
+  let full-door-width 3
+
+  if ( (pycor >= exit-start-pycor and pycor < exit-start-pycor + full-door-width) and pxcor = -29 )
+  [
+    let open-door-width 0
+
+    (ifelse
+    backdoor-exit = "closed" [set open-door-width 0]
+    backdoor-exit = "partially-opened" [ set open-door-width full-door-width - 1 ]
+    backdoor-exit = "opened" [  set open-door-width full-door-width ]
+    [  ])
+
+    ifelse pycor < exit-start-pycor + open-door-width
+    [
+      set pcolor green
+      set object "door"
+    ]
+    [
+     set pcolor orange
+    ]
+  ]
+
+end
+
 to top-left-first-stair
-  if ( pxcor = -39 and (pycor >= 28 and pycor <= 30) ) [
+  if ( pycor = 25 and (pxcor >= -38 and pxcor <= -36) ) [
     set pcolor turquoise
-    set object "teleport-door"
+    set object "intermediate-door"
   ]
 end
 
 to bottom-left-second-stair
   if ( pxcor = -32 and (pycor >= -19 and pycor <= -17) ) [
     set pcolor turquoise
-    set object "teleport-door"
+    set object "intermediate-door"
   ]
 end
 
@@ -715,11 +743,12 @@ end
 
 
 to teleport
-  ask turtles with [pycor = 26 and (pxcor >= -38  and pxcor <= -36 )]
+  ask turtles with [pycor = 26 and (pxcor >= -38 and pxcor <= -36)]
   [
-  setxy -31 -17
+    setxy -31 (-19 + random 3)
   ]
 end
+
 
 ;go when obstacles are jumpable
 to go
@@ -984,7 +1013,7 @@ SLIDER
 %-children-with-disabilities
 0
 20
-20.0
+0.0
 1
 1
 %
